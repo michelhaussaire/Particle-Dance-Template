@@ -139,38 +139,46 @@ export function PresetManager({
     <div className={`space-y-4 ${className}`}>
       {/* Header */}
       <div className="space-y-3">
-        <h3 className="text-lg font-semibold text-white">Presets</h3>
-        <div className="flex flex-wrap gap-2">
+        <h3 className="text-base sm:text-lg font-semibold text-white">
+          Presets
+        </h3>
+        <div className="flex flex-col sm:flex-row gap-2">
           <Button
             variant="primary"
             size="sm"
             onClick={() => setIsCreating(true)}
             icon="+"
-            className="flex-1 min-w-0"
+            className="flex-1 min-w-0 justify-center sm:justify-start"
           >
-            Save
+            Save Preset
           </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={importPresets}
-            icon="📁"
-            className="px-2"
-          />
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={exportPresets}
-            disabled={presets.length === 0}
-            icon="💾"
-            className="px-2"
-          />
+          <div className="flex gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={importPresets}
+              icon="📁"
+              className="flex-1 sm:flex-none px-3 sm:px-2 justify-center"
+            >
+              <span className="sm:hidden">Import</span>
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={exportPresets}
+              disabled={presets.length === 0}
+              icon="💾"
+              className="flex-1 sm:flex-none px-3 sm:px-2 justify-center"
+            >
+              <span className="sm:hidden">Export</span>
+            </Button>
+          </div>
         </div>
       </div>
 
       {/* Create New Preset Modal */}
       {isCreating && (
-        <div className="bg-slate-700/50 border border-slate-600 rounded-lg p-4 space-y-3">
+        <div className="bg-slate-700/50 border border-slate-600 rounded-lg p-3 sm:p-4 space-y-3">
           <h4 className="text-sm font-medium text-white">
             Save Current Settings
           </h4>
@@ -179,7 +187,7 @@ export function PresetManager({
             placeholder="Preset name..."
             value={newPresetName}
             onChange={(e) => setNewPresetName(e.target.value)}
-            className="w-full bg-slate-700 text-white p-2 rounded border border-slate-600 focus:border-purple-500 focus:outline-none text-sm"
+            className="w-full bg-slate-700 text-white p-3 rounded border border-slate-600 focus:border-purple-500 focus:outline-none text-sm touch-manipulation min-h-[44px]"
             autoFocus
           />
           <input
@@ -187,9 +195,9 @@ export function PresetManager({
             placeholder="Description (optional)..."
             value={newPresetDescription}
             onChange={(e) => setNewPresetDescription(e.target.value)}
-            className="w-full bg-slate-700 text-white p-2 rounded border border-slate-600 focus:border-purple-500 focus:outline-none text-sm"
+            className="w-full bg-slate-700 text-white p-3 rounded border border-slate-600 focus:border-purple-500 focus:outline-none text-sm touch-manipulation min-h-[44px]"
           />
-          <div className="flex justify-end space-x-2">
+          <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-0 sm:space-x-2">
             <Button
               variant="ghost"
               size="sm"
@@ -198,6 +206,7 @@ export function PresetManager({
                 setNewPresetName("");
                 setNewPresetDescription("");
               }}
+              className="order-2 sm:order-1"
             >
               Cancel
             </Button>
@@ -206,6 +215,7 @@ export function PresetManager({
               size="sm"
               onClick={savePreset}
               disabled={!newPresetName.trim()}
+              className="order-1 sm:order-2"
             >
               Save
             </Button>
@@ -214,12 +224,12 @@ export function PresetManager({
       )}
 
       {/* Presets List */}
-      <div className="space-y-2 max-h-60 overflow-y-auto custom-scrollbar">
+      <div className="space-y-2 max-h-60 sm:max-h-60 overflow-y-auto custom-scrollbar">
         {presets.length === 0 ? (
-          <div className="text-center py-6 text-gray-400">
-            <div className="text-2xl mb-2">🎭</div>
+          <div className="text-center py-4 sm:py-6 text-gray-400">
+            <div className="text-xl sm:text-2xl mb-2">🎭</div>
             <p className="text-sm">No presets saved yet</p>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-gray-500 mt-1 px-2">
               Save your current settings to create your first preset
             </p>
           </div>
@@ -227,28 +237,28 @@ export function PresetManager({
           presets.map((preset) => (
             <div
               key={preset.id}
-              className="bg-slate-700/30 hover:bg-slate-700/50 border border-slate-600/50 rounded-lg p-2 transition-colors group"
+              className="bg-slate-700/30 hover:bg-slate-700/50 border border-slate-600/50 rounded-lg p-2 sm:p-2 transition-colors group"
             >
               {/* Header with icon, name and actions */}
-              <div className="flex items-center justify-between mb-2">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0 mb-2">
                 <div className="flex items-center space-x-2 flex-1 min-w-0">
-                  <span className="text-sm">
+                  <span className="text-sm flex-shrink-0">
                     {getPatternIcon(preset.patternType)}
                   </span>
                   <h4 className="text-sm font-medium text-white truncate">
                     {preset.name}
                   </h4>
                 </div>
-                <div className="flex space-x-1">
+                <div className="flex space-x-1 flex-shrink-0">
                   <button
                     onClick={() => onLoadPreset(preset)}
-                    className="px-2 py-1 text-xs bg-purple-600 hover:bg-purple-700 text-white rounded transition-colors"
+                    className="px-3 py-1 text-xs bg-purple-600 hover:bg-purple-700 text-white rounded transition-colors touch-manipulation min-h-[32px] flex-1 sm:flex-none"
                   >
                     Load
                   </button>
                   <button
                     onClick={() => deletePreset(preset.id)}
-                    className="px-2 py-1 text-xs bg-red-600 hover:bg-red-700 text-white rounded transition-colors"
+                    className="px-2 py-1 text-xs bg-red-600 hover:bg-red-700 text-white rounded transition-colors touch-manipulation min-h-[32px] min-w-[32px]"
                   >
                     ×
                   </button>
@@ -257,18 +267,20 @@ export function PresetManager({
 
               {/* Description */}
               {preset.description && (
-                <p className="text-xs text-gray-400 mb-2 line-clamp-1">
+                <p className="text-xs text-gray-400 mb-2 line-clamp-2 sm:line-clamp-1">
                   {preset.description}
                 </p>
               )}
 
               {/* Stats */}
-              <div className="flex items-center justify-between text-xs text-gray-500">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0 text-xs text-gray-500">
                 <div className="flex items-center space-x-3">
-                  <span>{preset.particleCount.toLocaleString()}</span>
-                  <span>{preset.animationSpeed}x</span>
+                  <span>{preset.particleCount.toLocaleString()} particles</span>
+                  <span>{preset.animationSpeed}x speed</span>
                 </div>
-                <span>{formatDate(preset.createdAt)}</span>
+                <span className="text-right">
+                  {formatDate(preset.createdAt)}
+                </span>
               </div>
             </div>
           ))

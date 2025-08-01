@@ -262,23 +262,25 @@ export default particleDanceConfig;`;
   return (
     <div className={`space-y-4 ${className}`}>
       <div className="space-y-3">
-        <h3 className="text-lg font-semibold text-white">Export & Import</h3>
-        <div className="flex gap-2">
+        <h3 className="text-base sm:text-lg font-semibold text-white">
+          Export & Import
+        </h3>
+        <div className="flex flex-col sm:flex-row gap-2">
           <Button
             variant="primary"
             size="sm"
             onClick={() => setShowExportModal(true)}
             icon="📤"
-            className="flex-1"
+            className="flex-1 justify-center sm:justify-start"
           >
-            Export
+            Export Configuration
           </Button>
           <Button
             variant="secondary"
             size="sm"
             onClick={() => setShowImportModal(true)}
             icon="📥"
-            className="px-3"
+            className="flex-1 sm:flex-none px-3 justify-center sm:justify-start"
           >
             Import
           </Button>
@@ -288,8 +290,8 @@ export default particleDanceConfig;`;
       {/* Export Modal */}
       {showExportModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-800 border border-slate-700 rounded-lg max-w-md w-full animate-bounce-in">
-            <div className="p-6">
+          <div className="bg-slate-800 border border-slate-700 rounded-lg max-w-md w-full max-h-[90vh] overflow-y-auto animate-bounce-in">
+            <div className="p-4 sm:p-6">
               <h3 className="text-lg font-bold text-white mb-4">
                 Export Configuration
               </h3>
@@ -300,59 +302,60 @@ export default particleDanceConfig;`;
                   placeholder="Configuration name..."
                   value={exportName}
                   onChange={(e) => setExportName(e.target.value)}
-                  className="w-full bg-slate-700 text-white p-3 rounded border border-slate-600 focus:border-purple-500 focus:outline-none"
+                  className="w-full bg-slate-700 text-white p-3 rounded border border-slate-600 focus:border-purple-500 focus:outline-none touch-manipulation min-h-[44px]"
                 />
 
                 <textarea
                   placeholder="Description (optional)..."
                   value={exportDescription}
                   onChange={(e) => setExportDescription(e.target.value)}
-                  className="w-full bg-slate-700 text-white p-3 rounded border border-slate-600 focus:border-purple-500 focus:outline-none h-20 resize-none"
+                  className="w-full bg-slate-700 text-white p-3 rounded border border-slate-600 focus:border-purple-500 focus:outline-none h-20 resize-none touch-manipulation"
                 />
 
                 <div className="space-y-2">
                   <label className="text-sm text-gray-300 font-medium">
                     Export Format
                   </label>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <button
                       onClick={() => setExportFormat("json")}
-                      className={`p-2 rounded text-sm transition-colors ${
+                      className={`p-3 sm:p-2 rounded text-sm transition-colors touch-manipulation min-h-[44px] sm:min-h-auto ${
                         exportFormat === "json"
                           ? "bg-purple-600 text-white"
                           : "bg-slate-700 text-gray-300 hover:bg-slate-600"
                       }`}
                     >
-                      📄 JSON
+                      📄 JSON File
                     </button>
                     <button
                       onClick={() => setExportFormat("url")}
-                      className={`p-2 rounded text-sm transition-colors ${
+                      className={`p-3 sm:p-2 rounded text-sm transition-colors touch-manipulation min-h-[44px] sm:min-h-auto ${
                         exportFormat === "url"
                           ? "bg-purple-600 text-white"
                           : "bg-slate-700 text-gray-300 hover:bg-slate-600"
                       }`}
                     >
-                      🔗 URL
+                      🔗 Share URL
                     </button>
                     <button
                       onClick={() => setExportFormat("code")}
-                      className={`p-2 rounded text-sm transition-colors ${
+                      className={`p-3 sm:p-2 rounded text-sm transition-colors touch-manipulation min-h-[44px] sm:min-h-auto ${
                         exportFormat === "code"
                           ? "bg-purple-600 text-white"
                           : "bg-slate-700 text-gray-300 hover:bg-slate-600"
                       }`}
                     >
-                      💻 Code
+                      💻 Code File
                     </button>
                   </div>
                 </div>
               </div>
 
-              <div className="flex justify-end space-x-2 mt-6">
+              <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-0 sm:space-x-2 mt-6">
                 <Button
                   variant="ghost"
                   onClick={() => setShowExportModal(false)}
+                  className="order-2 sm:order-1"
                 >
                   Cancel
                 </Button>
@@ -360,6 +363,7 @@ export default particleDanceConfig;`;
                   variant="primary"
                   onClick={handleExport}
                   loading={isExporting}
+                  className="order-1 sm:order-2"
                 >
                   Export
                 </Button>
@@ -372,8 +376,8 @@ export default particleDanceConfig;`;
       {/* Import Modal */}
       {showImportModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-800 border border-slate-700 rounded-lg max-w-md w-full animate-bounce-in">
-            <div className="p-6">
+          <div className="bg-slate-800 border border-slate-700 rounded-lg max-w-md w-full max-h-[90vh] overflow-y-auto animate-bounce-in">
+            <div className="p-4 sm:p-6">
               <h3 className="text-lg font-bold text-white mb-4">
                 Import Configuration
               </h3>
@@ -390,7 +394,7 @@ export default particleDanceConfig;`;
                   onClick={handleFileImport}
                   loading={isImporting}
                   icon="📁"
-                  className="w-full justify-center"
+                  className="w-full justify-center min-h-[44px]"
                 >
                   Import from File
                 </Button>
@@ -400,14 +404,14 @@ export default particleDanceConfig;`;
                   onClick={handleURLImport}
                   loading={isImporting}
                   icon="🔗"
-                  className="w-full justify-center"
+                  className="w-full justify-center min-h-[44px]"
                 >
                   Import from URL
                 </Button>
               </div>
 
               <div className="mt-4 p-3 bg-slate-700/30 rounded text-xs text-gray-400">
-                <p className="mb-2">Supported formats:</p>
+                <p className="mb-2 font-medium">Supported formats:</p>
                 <ul className="space-y-1">
                   <li>• JSON files (.json)</li>
                   <li>• JavaScript files (.js)</li>
@@ -415,13 +419,14 @@ export default particleDanceConfig;`;
                 </ul>
               </div>
 
-              <div className="flex justify-end space-x-2 mt-6">
+              <div className="flex justify-end mt-6">
                 <Button
                   variant="ghost"
                   onClick={() => {
                     setShowImportModal(false);
                     setImportError("");
                   }}
+                  className="w-full sm:w-auto"
                 >
                   Cancel
                 </Button>

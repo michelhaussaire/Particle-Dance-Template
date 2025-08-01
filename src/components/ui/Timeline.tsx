@@ -123,38 +123,47 @@ export function Timeline({
     <div
       className={`bg-slate-800/95 backdrop-blur-sm border-t border-slate-700/50 ${className}`}
     >
-      <div className="p-4 space-y-4">
+      <div className="p-2 sm:p-4 space-y-3 sm:space-y-4">
         {/* Controls Row */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
+          <div className="flex items-center space-x-1 sm:space-x-2 flex-wrap gap-1 sm:gap-0">
             <Button
               variant="primary"
               size="sm"
               onClick={isPlaying ? onPause : onPlay}
               icon={isPlaying ? "⏸️" : "▶️"}
+              className="min-w-0"
             >
-              {isPlaying ? "Pause" : "Play"}
+              <span className="hidden sm:inline">
+                {isPlaying ? "Pause" : "Play"}
+              </span>
             </Button>
-            <Button variant="secondary" size="sm" onClick={onStop} icon="⏹️">
-              Stop
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={onStop}
+              icon="⏹️"
+              className="min-w-0"
+            >
+              <span className="hidden sm:inline">Stop</span>
             </Button>
-            <div className="w-px h-6 bg-slate-600 mx-2" />
+            <div className="w-px h-6 bg-slate-600 mx-1 sm:mx-2 hidden sm:block" />
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setShowKeyframes(!showKeyframes)}
               icon="📍"
-              className={showKeyframes ? "text-purple-400" : ""}
+              className={`${showKeyframes ? "text-purple-400" : ""} min-w-0`}
             >
-              Keyframes
+              <span className="hidden sm:inline">Keyframes</span>
             </Button>
           </div>
 
-          <div className="flex items-center space-x-4 text-sm text-gray-400">
-            <span className="font-mono">
+          <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4 text-xs sm:text-sm text-gray-400">
+            <span className="font-mono text-center sm:text-left">
               {formatTime(currentTime)} / {formatTime(duration)}
             </span>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center justify-center sm:justify-start space-x-2">
               <span className="text-xs">Status:</span>
               <div
                 className={`w-2 h-2 rounded-full ${
@@ -176,7 +185,7 @@ export function Timeline({
         <div className="space-y-2">
           {/* Keyframes Track */}
           {showKeyframes && keyframes.length > 0 && (
-            <div className="relative h-6">
+            <div className="relative h-5 sm:h-6">
               <div className="absolute inset-0 bg-slate-700/30 rounded" />
               {keyframes.map((keyframe, index) => {
                 const position =
@@ -184,14 +193,14 @@ export function Timeline({
                 return (
                   <div
                     key={index}
-                    className={`absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full ${getKeyframeColor(
+                    className={`absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-3 h-3 sm:w-3 sm:h-3 rounded-full ${getKeyframeColor(
                       keyframe.type
-                    )} border-2 border-white shadow-lg cursor-pointer hover:scale-125 transition-transform`}
+                    )} border-2 border-white shadow-lg cursor-pointer hover:scale-125 transition-transform touch-manipulation`}
                     style={{ left: `${position}%` }}
                     title={`${keyframe.label} (${formatTime(keyframe.time)})`}
                     onClick={() => onSeek(keyframe.time)}
                   >
-                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs bg-black/80 text-white px-2 py-1 rounded opacity-0 hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs bg-black/80 text-white px-2 py-1 rounded opacity-0 hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
                       {getKeyframeIcon(keyframe.type)} {keyframe.label}
                     </div>
                   </div>
@@ -203,7 +212,7 @@ export function Timeline({
           {/* Main Timeline Track */}
           <div
             ref={timelineRef}
-            className="relative h-3 bg-slate-700 rounded-full cursor-pointer group"
+            className="relative h-3 sm:h-3 bg-slate-700 rounded-full cursor-pointer group touch-manipulation"
             onMouseDown={handleMouseDown}
           >
             {/* Progress Bar */}
@@ -215,35 +224,37 @@ export function Timeline({
 
             {/* Playhead */}
             <div
-              className="absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-5 h-5 bg-white rounded-full shadow-lg border-2 border-purple-500 cursor-grab active:cursor-grabbing group-hover:scale-110 transition-transform"
+              className="absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-5 h-5 sm:w-5 sm:h-5 bg-white rounded-full shadow-lg border-2 border-purple-500 cursor-grab active:cursor-grabbing group-hover:scale-110 transition-transform touch-manipulation"
               style={{ left: `${progress}%` }}
             >
               <div className="absolute inset-1 bg-purple-500 rounded-full" />
             </div>
 
             {/* Time Markers */}
-            <div className="absolute -bottom-6 left-0 right-0 flex justify-between text-xs text-gray-500">
+            <div className="absolute -bottom-5 sm:-bottom-6 left-0 right-0 flex justify-between text-xs text-gray-500">
               <span>0:00</span>
-              <span>{formatTime(duration / 2)}</span>
+              <span className="hidden sm:inline">
+                {formatTime(duration / 2)}
+              </span>
               <span>{formatTime(duration)}</span>
             </div>
           </div>
         </div>
 
         {/* Additional Controls */}
-        <div className="flex items-center justify-between text-xs text-gray-400">
-          <div className="flex items-center space-x-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0 text-xs text-gray-400">
+          <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
             <div className="flex items-center space-x-2">
               <span>Loop:</span>
               <input
                 type="checkbox"
-                className="rounded border-slate-600 bg-slate-700 text-purple-500 focus:ring-purple-500 focus:ring-offset-slate-800"
+                className="rounded border-slate-600 bg-slate-700 text-purple-500 focus:ring-purple-500 focus:ring-offset-slate-800 touch-manipulation"
               />
             </div>
             <div className="flex items-center space-x-2">
               <span>Speed:</span>
               <select
-                className="bg-slate-700 border-slate-600 rounded text-white text-xs px-2 py-1"
+                className="bg-slate-700 border-slate-600 rounded text-white text-xs px-2 py-1 touch-manipulation min-h-[28px]"
                 defaultValue="1"
               >
                 <option value="0.5">0.5x</option>
@@ -254,7 +265,7 @@ export function Timeline({
             </div>
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center justify-center sm:justify-end space-x-2">
             <span>Quality:</span>
             <div
               className={`w-2 h-2 rounded-full ${
@@ -286,20 +297,20 @@ export function MiniTimeline({
   className = "",
 }: MiniTimelineProps) {
   return (
-    <div className={`flex items-center space-x-3 ${className}`}>
+    <div className={`flex items-center space-x-2 sm:space-x-3 ${className}`}>
       <button
         onClick={onTogglePlay}
-        className="w-8 h-8 bg-purple-600 hover:bg-purple-700 rounded-full flex items-center justify-center text-white transition-colors"
+        className="w-8 h-8 sm:w-8 sm:h-8 bg-purple-600 hover:bg-purple-700 rounded-full flex items-center justify-center text-white transition-colors touch-manipulation flex-shrink-0"
       >
         {isPlaying ? "⏸️" : "▶️"}
       </button>
-      <div className="flex-1 h-2 bg-slate-700 rounded-full overflow-hidden">
+      <div className="flex-1 h-2 bg-slate-700 rounded-full overflow-hidden min-w-0">
         <div
           className="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-200"
           style={{ width: `${progress}%` }}
         />
       </div>
-      <span className="text-xs text-gray-400 min-w-[60px]">
+      <span className="text-xs text-gray-400 min-w-[50px] sm:min-w-[60px] text-center flex-shrink-0">
         {isPlaying ? "Live" : "Ready"}
       </span>
     </div>
