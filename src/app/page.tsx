@@ -1,13 +1,15 @@
-import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+"use client";
+
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 
 // Dynamically import the editor to avoid SSR issues with Three.js
 const TemplateEditor = dynamic(
-  () => import('@/components/editor/TemplateEditor'),
-  { 
+  () => import("@/components/editor/TemplateEditor"),
+  {
     ssr: false,
-    loading: () => <LoadingSpinner />
+    loading: () => <LoadingSpinner />,
   }
 );
 
@@ -26,11 +28,13 @@ export default function HomePage() {
               <p className="text-xs text-gray-400">Template System</p>
             </div>
           </div>
-          
+
           <div className="flex items-center space-x-4">
             <div className="text-right">
               <p className="text-xs text-gray-400">Interview Project</p>
-              <p className="text-sm text-white font-medium">⏱️ 2 Hours Challenge</p>
+              <p className="text-sm text-white font-medium">
+                ⏱️ 2 Hours Challenge
+              </p>
             </div>
           </div>
         </div>
