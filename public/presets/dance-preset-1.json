@@ -1,0 +1,133 @@
+{
+  "id": "dance-preset-1",
+  "name": "Elegant Wave Dance",
+  "description": "A flowing wave pattern inspired by contemporary dance movements",
+  "version": "1.0.0",
+  "createdAt": "2025-01-08T00:00:00.000Z",
+  "updatedAt": "2025-01-08T00:00:00.000Z",
+  "config": {
+    "particles": {
+      "count": 800,
+      "size": 2.5,
+      "sizeVariation": 0.3,
+      "color": "#8b5cf6",
+      "colorVariation": 0.2,
+      "opacity": 0.8,
+      "opacityVariation": 0.1
+    },
+    "physics": {
+      "gravity": { "x": 0, "y": -2.0, "z": 0 },
+      "damping": 0.98,
+      "turbulence": 0.1,
+      "attractors": []
+    },
+    "rendering": {
+      "blendMode": "additive",
+      "material": "standard",
+      "shadows": false,
+      "lighting": {
+        "ambient": {
+          "color": "#404040",
+          "intensity": 0.4
+        },
+        "directional": [
+          {
+            "color": "#ffffff",
+            "intensity": 0.8,
+            "position": { "x": 10, "y": 10, "z": 10 }
+          }
+        ],
+        "point": []
+      }
+    },
+    "performance": {
+      "maxParticles": 1000,
+      "cullingDistance": 100,
+      "updateFrequency": 60,
+      "renderQuality": "high"
+    }
+  },
+  "timeline": {
+    "duration": 12,
+    "keyframes": [
+      {
+        "time": 0,
+        "properties": {
+          "position": { "x": 0, "y": 0, "z": 0 },
+          "scale": { "x": 1, "y": 1, "z": 1 },
+          "opacity": 0.8
+        }
+      },
+      {
+        "time": 0.5,
+        "properties": {
+          "position": { "x": 0, "y": 10, "z": 0 },
+          "scale": { "x": 1.2, "y": 1.2, "z": 1.2 },
+          "opacity": 1.0
+        },
+        "easing": "easeInOut"
+      },
+      {
+        "time": 1,
+        "properties": {
+          "position": { "x": 0, "y": 0, "z": 0 },
+          "scale": { "x": 1, "y": 1, "z": 1 },
+          "opacity": 0.8
+        },
+        "easing": "easeInOut"
+      }
+    ],
+    "easing": "easeInOut",
+    "loop": true,
+    "autoplay": true
+  },
+  "parameters": [
+    {
+      "id": "particle-count",
+      "name": "Particle Count",
+      "description": "Number of particles in the system",
+      "type": "range",
+      "category": "particles",
+      "defaultValue": 800,
+      "minValue": 10,
+      "maxValue": 2000,
+      "step": 10,
+      "ui": {
+        "component": "slider",
+        "label": "Particles",
+        "unit": "particles"
+      },
+      "animatable": false,
+      "realtime": true
+    },
+    {
+      "id": "wave-amplitude",
+      "name": "Wave Amplitude",
+      "description": "Height of the wave motion",
+      "type": "number",
+      "category": "animation",
+      "defaultValue": 10,
+      "minValue": 0,
+      "maxValue": 50,
+      "step": 0.5,
+      "ui": {
+        "component": "slider",
+        "label": "Amplitude",
+        "unit": "units"
+      },
+      "animatable": true,
+      "realtime": true
+    }
+  ],
+  "metadata": {
+    "author": "Particle Dance System",
+    "tags": ["dance", "wave", "elegant", "contemporary"],
+    "difficulty": "beginner",
+    "estimatedRenderTime": 30,
+    "requiredFeatures": ["webgl", "particles"],
+    "compatibility": {
+      "minWebGLVersion": 1,
+      "requiredExtensions": []
+    }
+  }
+}
